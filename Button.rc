@@ -1,0 +1,633 @@
+//Microsoft Developer Studio generated resource script.
+//
+#include "resource.h"
+
+#define APSTUDIO_READONLY_SYMBOLS
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 2 resource.
+//
+#include "afxres.h"
+
+/////////////////////////////////////////////////////////////////////////////
+#undef APSTUDIO_READONLY_SYMBOLS
+
+/////////////////////////////////////////////////////////////////////////////
+// English (U.S.) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE LANG_ENGLISH, SUBLANG_ENGLISH_US
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Icon
+//
+
+// Icon with lowest ID value placed first to ensure application icon
+// remains consistent on all systems.
+IDR_MAINFRAME           ICON    DISCARDABLE     "res\\Button.ico"
+IDR_BUTTONTYPE          ICON    DISCARDABLE     "res\\ButtonDoc.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDR_MAINFRAME           BITMAP  MOVEABLE PURE   "res\\Toolbar.bmp"
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Toolbar
+//
+
+IDR_MAINFRAME TOOLBAR DISCARDABLE  16, 15
+BEGIN
+    BUTTON      ID_FILE_NEW
+    BUTTON      ID_FILE_OPEN
+    BUTTON      ID_FILE_SAVE
+    SEPARATOR
+    BUTTON      ID_EDIT_CUT
+    BUTTON      ID_EDIT_COPY
+    BUTTON      ID_EDIT_PASTE
+    SEPARATOR
+    BUTTON      ID_FILE_PRINT
+    SEPARATOR
+    BUTTON      ID_APP_ABOUT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Menu
+//
+
+IDR_MAINFRAME MENU PRELOAD DISCARDABLE 
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&New\tCtrl+N",                ID_FILE_NEW
+        MENUITEM "&Open...\tCtrl+O",            ID_FILE_OPEN
+        MENUITEM "&Save\tCtrl+S",               ID_FILE_SAVE
+        MENUITEM "Save &As...",                 ID_FILE_SAVE_AS
+        MENUITEM SEPARATOR
+        MENUITEM "Recent File",                 ID_FILE_MRU_FILE1, GRAYED
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",                       ID_APP_EXIT
+    END
+    POPUP "&Edit"
+    BEGIN
+        MENUITEM "&Undo\tCtrl+Z",               ID_EDIT_UNDO
+        MENUITEM SEPARATOR
+        MENUITEM "Cu&t\tCtrl+X",                ID_EDIT_CUT
+        MENUITEM "&Copy\tCtrl+C",               ID_EDIT_COPY
+        MENUITEM "&Paste\tCtrl+V",              ID_EDIT_PASTE
+        MENUITEM SEPARATOR
+        MENUITEM "Configuratio&n",              ID_EDIT_CONFIG
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "&Toolbar",                    ID_VIEW_TOOLBAR
+        MENUITEM "&Status Bar",                 ID_VIEW_STATUS_BAR
+    END
+    POPUP "Action"
+    BEGIN
+        MENUITEM "Start",                       ID_ACTION_START
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About Button...",            ID_APP_ABOUT
+    END
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Accelerator
+//
+
+IDR_MAINFRAME ACCELERATORS PRELOAD MOVEABLE PURE 
+BEGIN
+    "N",            ID_FILE_NEW,            VIRTKEY, CONTROL
+    "O",            ID_FILE_OPEN,           VIRTKEY, CONTROL
+    "S",            ID_FILE_SAVE,           VIRTKEY, CONTROL
+    "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL
+    "X",            ID_EDIT_CUT,            VIRTKEY, CONTROL
+    "C",            ID_EDIT_COPY,           VIRTKEY, CONTROL
+    "V",            ID_EDIT_PASTE,          VIRTKEY, CONTROL
+    VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT
+    VK_DELETE,      ID_EDIT_CUT,            VIRTKEY, SHIFT
+    VK_INSERT,      ID_EDIT_COPY,           VIRTKEY, CONTROL
+    VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT
+    VK_F6,          ID_NEXT_PANE,           VIRTKEY 
+    VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_ABOUTBOX DIALOG DISCARDABLE  0, 0, 235, 55
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "About Button"
+FONT 8, "MS Sans Serif"
+BEGIN
+    ICON            IDR_MAINFRAME,IDC_STATIC,11,17,20,20
+    LTEXT           "Button Version 1.0",IDC_STATIC,40,10,119,8,SS_NOPREFIX
+    LTEXT           "Copyright (C) 2001",IDC_STATIC,40,25,119,8
+    DEFPUSHBUTTON   "OK",IDOK,178,7,50,14,WS_GROUP
+END
+
+
+#ifndef _MAC
+/////////////////////////////////////////////////////////////////////////////
+//
+// Version
+//
+
+VS_VERSION_INFO VERSIONINFO
+ FILEVERSION 1,0,0,1
+ PRODUCTVERSION 1,0,0,1
+ FILEFLAGSMASK 0x3fL
+#ifdef _DEBUG
+ FILEFLAGS 0x1L
+#else
+ FILEFLAGS 0x0L
+#endif
+ FILEOS 0x4L
+ FILETYPE 0x1L
+ FILESUBTYPE 0x0L
+BEGIN
+    BLOCK "StringFileInfo"
+    BEGIN
+        BLOCK "040904B0"
+        BEGIN
+            VALUE "CompanyName", "\0"
+            VALUE "FileDescription", "Button MFC Application\0"
+            VALUE "FileVersion", "1, 0, 0, 1\0"
+            VALUE "InternalName", "Button\0"
+            VALUE "LegalCopyright", "Copyright (C) 2001\0"
+            VALUE "LegalTrademarks", "\0"
+            VALUE "OriginalFilename", "Button.EXE\0"
+            VALUE "ProductName", "Button Application\0"
+            VALUE "ProductVersion", "1, 0, 0, 1\0"
+        END
+    END
+    BLOCK "VarFileInfo"
+    BEGIN
+        VALUE "Translation", 0x409, 1200
+    END
+END
+
+#endif    // !_MAC
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_ABOUTBOX, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 228
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 48
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// String Table
+//
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    IDR_MAINFRAME           "Button\n\nButton\n\n\nButton.Document\nButton Document"
+END
+
+STRINGTABLE PRELOAD DISCARDABLE 
+BEGIN
+    AFX_IDS_APP_TITLE       "Button"
+    AFX_IDS_IDLEMESSAGE     "Ready"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_INDICATOR_EXT        "EXT"
+    ID_INDICATOR_CAPS       "CAP"
+    ID_INDICATOR_NUM        "NUM"
+    ID_INDICATOR_SCRL       "SCRL"
+    ID_INDICATOR_OVR        "OVR"
+    ID_INDICATOR_REC        "REC"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_NEW             "Create a new document\nNew"
+    ID_FILE_OPEN            "Open an existing document\nOpen"
+    ID_FILE_CLOSE           "Close the active document\nClose"
+    ID_FILE_SAVE            "Save the active document\nSave"
+    ID_FILE_SAVE_AS         "Save the active document with a new name\nSave As"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_APP_ABOUT            "Display program information, version number and copyright\nAbout"
+    ID_APP_EXIT             "Quit the application; prompts to save documents\nExit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_FILE_MRU_FILE1       "Open this document"
+    ID_FILE_MRU_FILE2       "Open this document"
+    ID_FILE_MRU_FILE3       "Open this document"
+    ID_FILE_MRU_FILE4       "Open this document"
+    ID_FILE_MRU_FILE5       "Open this document"
+    ID_FILE_MRU_FILE6       "Open this document"
+    ID_FILE_MRU_FILE7       "Open this document"
+    ID_FILE_MRU_FILE8       "Open this document"
+    ID_FILE_MRU_FILE9       "Open this document"
+    ID_FILE_MRU_FILE10      "Open this document"
+    ID_FILE_MRU_FILE11      "Open this document"
+    ID_FILE_MRU_FILE12      "Open this document"
+    ID_FILE_MRU_FILE13      "Open this document"
+    ID_FILE_MRU_FILE14      "Open this document"
+    ID_FILE_MRU_FILE15      "Open this document"
+    ID_FILE_MRU_FILE16      "Open this document"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_NEXT_PANE            "Switch to the next window pane\nNext Pane"
+    ID_PREV_PANE            "Switch back to the previous window pane\nPrevious Pane"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_WINDOW_SPLIT         "Split the active window into panes\nSplit"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_EDIT_CLEAR           "Erase the selection\nErase"
+    ID_EDIT_CLEAR_ALL       "Erase everything\nErase All"
+    ID_EDIT_COPY            "Copy the selection and put it on the Clipboard\nCopy"
+    ID_EDIT_CUT             "Cut the selection and put it on the Clipboard\nCut"
+    ID_EDIT_FIND            "Find the specified text\nFind"
+    ID_EDIT_PASTE           "Insert Clipboard contents\nPaste"
+    ID_EDIT_REPEAT          "Repeat the last action\nRepeat"
+    ID_EDIT_REPLACE         "Replace specific text with different text\nReplace"
+    ID_EDIT_SELECT_ALL      "Select the entire document\nSelect All"
+    ID_EDIT_UNDO            "Undo the last action\nUndo"
+    ID_EDIT_REDO            "Redo the previously undone action\nRedo"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    ID_VIEW_TOOLBAR         "Show or hide the toolbar\nToggle ToolBar"
+    ID_VIEW_STATUS_BAR      "Show or hide the status bar\nToggle StatusBar"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCSIZE          "Change the window size"
+    AFX_IDS_SCMOVE          "Change the window position"
+    AFX_IDS_SCMINIMIZE      "Reduce the window to an icon"
+    AFX_IDS_SCMAXIMIZE      "Enlarge the window to full size"
+    AFX_IDS_SCNEXTWINDOW    "Switch to the next document window"
+    AFX_IDS_SCPREVWINDOW    "Switch to the previous document window"
+    AFX_IDS_SCCLOSE         "Close the active window and prompts to save the documents"
+END
+
+STRINGTABLE DISCARDABLE 
+BEGIN
+    AFX_IDS_SCRESTORE       "Restore the window to normal size"
+    AFX_IDS_SCTASKLIST      "Activate Task List"
+END
+
+#endif    // English (U.S.) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+/////////////////////////////////////////////////////////////////////////////
+// French (Switzerland) resources
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_FRS)
+#ifdef _WIN32
+LANGUAGE LANG_FRENCH, SUBLANG_FRENCH_SWISS
+#pragma code_page(1252)
+#endif //_WIN32
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog
+//
+
+IDD_COMMON DIALOG DISCARDABLE  0, 0, 392, 326
+STYLE WS_POPUP | WS_VISIBLE | WS_CAPTION
+CAPTION "Category"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,335,245,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,335,265,50,14
+    LTEXT           "Image file",IDC_STATIC,15,35,30,12,SS_CENTERIMAGE | NOT 
+                    WS_GROUP
+    PUSHBUTTON      "...",IDC_B_SELECT_FILE,320,35,17,13,NOT WS_TABSTOP
+    EDITTEXT        IDC_FILE_NAME,55,35,255,12,ES_AUTOHSCROLL
+    GROUPBOX        "Common parameters",IDC_STATIC,10,55,335,170
+    LTEXT           "Initial number of iterations (cycles)",IDC_STATIC,28,70,
+                    106,8,NOT WS_GROUP
+    EDITTEXT        IDC_CYCLES,140,70,20,12,ES_AUTOHSCROLL
+    LTEXT           "Stop cycles",IDC_STATIC,94,86,38,8,NOT WS_GROUP
+    EDITTEXT        IDC_STOP_CY,140,86,20,12,ES_AUTOHSCROLL
+    LTEXT           "Stop cycles proportional",IDC_STATIC,56,100,76,8
+    EDITTEXT        IDC_STOP_CY_PROP,140,100,20,12,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "Maximum number of retry",IDC_STATIC,53,131,79,8
+    EDITTEXT        IDC_NB_RETRY,140,130,20,12,ES_AUTOHSCROLL
+    LTEXT           "Error tolerance (epsilon)",IDC_STATIC,57,115,75,8
+    EDITTEXT        IDC_EPS,140,115,20,12,ES_AUTOHSCROLL
+    LTEXT           "Maximum number of subsystems",IDC_STATIC,30,145,102,8
+    EDITTEXT        IDC_MAX_NB_SUBS,140,145,20,12,ES_AUTOHSCROLL
+    CONTROL         "Real-time graphical display",IDC_GRAPHICAL_DISPLAY,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,175,70,95,10
+    COMBOBOX        IDC_DETECTION_TYPE,75,10,105,55,CBS_DROPDOWNLIST | 
+                    CBS_SORT | WS_VSCROLL | WS_TABSTOP
+    GROUPBOX        "Automatic temperature",IDC_TEMP_AUT,10,235,155,80
+    LTEXT           "Initial temperature",IDC_STATIC,219,257,56,8,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_MANU_INI_TEMP,285,255,20,12,ES_AUTOHSCROLL
+    LTEXT           "Correction parameter (alpha)",IDC_STATIC,185,275,90,8,
+                    NOT WS_GROUP
+    EDITTEXT        IDC_ALPHA,285,275,20,12,ES_AUTOHSCROLL
+    CONTROL         "Exponential decrease of the temperature",IDC_EXP_TEMP,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,180,295,143,10
+    GROUPBOX        "Manual temperature",IDC_TEMP_MAN,175,240,150,75
+    CONTROL         "Automatic initial temperature setting",
+                    IDC_AUTO_INI_TEMP,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    30,250,125,10
+    LTEXT           "Gain factor for initial T zero",IDC_STATIC,43,265,85,8,
+                    NOT WS_GROUP
+    EDITTEXT        IDC_INI_TZERO,135,265,20,12,ES_AUTOHSCROLL
+    LTEXT           "Gain factor for update T zero",IDC_STATIC,36,280,92,8,
+                    NOT WS_GROUP
+    EDITTEXT        IDC_UPDATE_TZERO,135,280,20,12,ES_AUTOHSCROLL
+    LTEXT           "Fraction of old T zero",IDC_STATIC,60,295,68,8,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_ALPHA_TZERO,135,295,20,12,ES_AUTOHSCROLL | WS_GROUP
+    LTEXT           "Detection type",IDC_STATIC,15,15,47,8
+    PUSHBUTTON      "Detection settings",IDC_B_DETECTION_SET,190,10,70,15
+    CONTROL         "Enable graphical display of well classified points",
+                    IDC_MON_WELL_CL,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    175,85,165,10
+    CONTROL         "Enable graphical display of bad subsystems",
+                    IDC_DRAW_BAD_SUBS,"Button",BS_AUTOCHECKBOX | WS_TABSTOP,
+                    175,100,152,10
+    CONTROL         "Time initialization of random number generator",IDC_RND,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,175,130,159,10
+    LTEXT           "Number of retrials with last results",IDC_STATIC,27,160,
+                    105,8,NOT WS_GROUP
+    EDITTEXT        IDC_RETRY_WITH_LAST,140,160,20,12,ES_AUTOHSCROLL
+    CONTROL         "Do not remove classified points",IDC_NO_PTS_RMV,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,175,115,114,10
+    LTEXT           "Superior limit of dist/t",IDC_STATIC,66,175,66,8,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_STOP_TEMP,140,175,20,12,ES_AUTOHSCROLL
+    CONTROL         "Temperature monitoring",IDC_MON_T,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,175,175,90,10
+    CONTROL         "Solution monitoring",IDC_MON_AB,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,175,160,75,10
+    LTEXT           "Add final results (bench) to file:",IDC_STATIC,175,190,
+                    97,8,NOT WS_GROUP
+    EDITTEXT        IDC_RESULT,175,205,95,12,ES_AUTOHSCROLL
+    LTEXT           "Number of subsystems",IDC_STATIC,60,190,72,8
+    EDITTEXT        IDC_NB_SUBS,140,190,20,12,ES_AUTOHSCROLL
+    LTEXT           "No corrections of the current solution",IDC_STATIC,15,
+                    205,117,8
+    EDITTEXT        IDC_NO_CORR,140,205,20,12,ES_AUTOHSCROLL
+    CONTROL         "Enable random origin",IDC_RND_ORIGIN,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,175,145,82,10
+END
+
+IDD_LDETECT DIALOG DISCARDABLE  0, 0, 422, 146
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,365,10,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,365,30,50,14
+    GROUPBOX        "Line detection",IDC_STATIC,10,5,350,135
+    CONTROL         "Input file is in BMP format",IDC_BMP_OR_NOT,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,25,50,98,10
+    EDITTEXT        IDC_COLOR,330,120,20,12,ES_AUTOHSCROLL
+    LTEXT           "Background color of the image file ",IDC_STATIC,215,120,
+                    110,8,NOT WS_GROUP
+    GROUPBOX        "Display partial results",IDC_STATIC,20,65,95,63
+    CONTROL         "No display",IDC_NO_DISP,"Button",BS_AUTORADIOBUTTON | 
+                    WS_GROUP | WS_TABSTOP,36,79,49,10
+    CONTROL         "Graphics",IDC_RADIO2,"Button",BS_AUTORADIOBUTTON | 
+                    WS_TABSTOP,36,94,44,10
+    CONTROL         "Graphics and text",IDC_RADIO3,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,36,109,71,10
+    EDITTEXT        IDC_NOISE1,330,105,20,12,ES_AUTOHSCROLL
+    LTEXT           "Noise (% of total number of equations)",IDC_STATIC,205,
+                    106,120,8,NOT WS_GROUP
+    LTEXT           "Legth of the sliding window for segment extraction (odd)",
+                    IDC_STATIC,149,90,176,8,NOT WS_GROUP
+    LTEXT           "Threshold for segment extraction",IDC_STATIC,221,46,104,
+                    8,NOT WS_GROUP
+    EDITTEXT        IDC_SEGMENT,330,90,20,12,ES_AUTOHSCROLL
+    EDITTEXT        IDC_SEG_THRE,330,45,20,12,ES_AUTOHSCROLL
+    LTEXT           "Epsilon for segment extraction",IDC_STATIC,230,33,95,8,
+                    NOT WS_GROUP
+    EDITTEXT        IDC_SEG_EPSI,330,30,20,12,ES_AUTOHSCROLL
+    LTEXT           "Number of clusters",IDC_STATIC,265,16,60,8,NOT WS_GROUP
+    EDITTEXT        IDC_CLUSTER,330,15,20,12,ES_AUTOHSCROLL
+    CONTROL         "Use last solution as starting point",IDC_LAST_AS_START,
+                    "Button",BS_AUTOCHECKBOX | WS_TABSTOP,25,35,119,10
+    CONTROL         "Enable line detection with local tangental estimation",
+                    IDC_TAN_EST,"Button",BS_AUTOCHECKBOX,25,20,178,10
+    LTEXT           "Minimum variation of C in one cycle",IDC_STATIC,213,60,
+                    112,8,NOT WS_GROUP
+    EDITTEXT        IDC_DELTA_C_MIN,330,60,20,12,ES_AUTOHSCROLL
+    LTEXT           "Proportion of points to randomly take at each iteration",
+                    IDC_STATIC,157,75,168,8,NOT WS_GROUP
+    EDITTEXT        IDC_PARTIAL,330,75,20,12,ES_AUTOHSCROLL
+END
+
+IDD_CDETECT DIALOG DISCARDABLE  0, 0, 207, 86
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,150,10,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,150,30,50,14
+    GROUPBOX        "Conic detection",IDC_STATIC,5,7,135,68,WS_GROUP
+    CONTROL         "Enable general conic detection",IDC_DETECTION,"Button",
+                    BS_AUTORADIOBUTTON | WS_GROUP | WS_TABSTOP,20,25,114,10
+    CONTROL         "Enable circle detection",IDC_RADIO2,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,20,40,88,10
+    CONTROL         "Enable ellipse detection",IDC_RADIO3,"Button",
+                    BS_AUTORADIOBUTTON | WS_TABSTOP,20,55,91,10
+END
+
+IDD_AR DIALOG DISCARDABLE  0, 0, 227, 141
+STYLE DS_MODALFRAME | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Dialog"
+FONT 8, "MS Sans Serif"
+BEGIN
+    DEFPUSHBUTTON   "OK",IDOK,170,15,50,14
+    PUSHBUTTON      "Cancel",IDCANCEL,170,35,50,14
+    GROUPBOX        "AR modeling parameters",IDC_STATIC,10,10,155,125,
+                    WS_GROUP
+    EDITTEXT        IDC_ORDER_AR,130,25,20,12,ES_AUTOHSCROLL
+    LTEXT           "Order of the AR model",IDC_STATIC,54,25,71,8
+    CONTROL         "Apply Winnow algorithm",IDC_WINNOW,"Button",
+                    BS_AUTOCHECKBOX | WS_TABSTOP,20,85,91,10
+    EDITTEXT        IDC_CONTIGUOUS,130,40,20,12,ES_AUTOHSCROLL
+    LTEXT           "Force contiguous partitioning",IDC_STATIC,33,40,92,8
+    EDITTEXT        IDC_INDEX_MIN,130,55,20,12,ES_AUTOHSCROLL
+    LTEXT           "Max index of partial file extraction",IDC_STATIC,20,70,
+                    105,8,NOT WS_GROUP
+    EDITTEXT        IDC_INDEX_MAX,130,70,20,12,ES_AUTOHSCROLL
+    LTEXT           "Min index of partial file extraction",IDC_STATIC,22,55,
+                    103,8,NOT WS_GROUP
+    LTEXT           "AR output file name:",IDC_STATIC,20,100,65,8,NOT 
+                    WS_GROUP
+    EDITTEXT        IDC_AR_OUT_FILE,20,115,85,12,ES_AUTOHSCROLL
+END
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// DESIGNINFO
+//
+
+#ifdef APSTUDIO_INVOKED
+GUIDELINES DESIGNINFO DISCARDABLE 
+BEGIN
+    IDD_COMMON, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 385
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 322
+    END
+
+    IDD_LDETECT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 415
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 139
+    END
+
+    IDD_CDETECT, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 200
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 79
+    END
+
+    IDD_AR, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 220
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 134
+    END
+END
+#endif    // APSTUDIO_INVOKED
+
+
+#ifdef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// TEXTINCLUDE
+//
+
+1 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "resource.h\0"
+END
+
+2 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#include ""afxres.h""\r\n"
+    "\0"
+END
+
+3 TEXTINCLUDE DISCARDABLE 
+BEGIN
+    "#define _AFX_NO_SPLITTER_RESOURCES\r\n"
+    "#define _AFX_NO_OLE_RESOURCES\r\n"
+    "#define _AFX_NO_TRACKER_RESOURCES\r\n"
+    "#define _AFX_NO_PROPERTY_RESOURCES\r\n"
+    "\r\n"
+    "#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)\r\n"
+    "#ifdef _WIN32\r\n"
+    "LANGUAGE 9, 1\r\n"
+    "#pragma code_page(1252)\r\n"
+    "#endif //_WIN32\r\n"
+    "#include ""res\\Button.rc2""  // non-Microsoft Visual C++ edited resources\r\n"
+    "#include ""afxres.rc""         // Standard components\r\n"
+    "#endif\r\n"
+    "\0"
+END
+
+#endif    // APSTUDIO_INVOKED
+
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Dialog Info
+//
+
+IDD_COMMON DLGINIT
+BEGIN
+    IDC_DETECTION_TYPE, 0x403, 15, 0
+0x694c, 0x656e, 0x6420, 0x7465, 0x6365, 0x6974, 0x6e6f, "\000" 
+    IDC_DETECTION_TYPE, 0x403, 16, 0
+0x6f43, 0x696e, 0x2063, 0x6564, 0x6574, 0x7463, 0x6f69, 0x006e, 
+    IDC_DETECTION_TYPE, 0x403, 13, 0
+0x5241, 0x6d20, 0x646f, 0x6c65, 0x696c, 0x676e, "\000" 
+    0
+END
+
+#endif    // French (Switzerland) resources
+/////////////////////////////////////////////////////////////////////////////
+
+
+
+#ifndef APSTUDIO_INVOKED
+/////////////////////////////////////////////////////////////////////////////
+//
+// Generated from the TEXTINCLUDE 3 resource.
+//
+#define _AFX_NO_SPLITTER_RESOURCES
+#define _AFX_NO_OLE_RESOURCES
+#define _AFX_NO_TRACKER_RESOURCES
+#define _AFX_NO_PROPERTY_RESOURCES
+
+#if !defined(AFX_RESOURCE_DLL) || defined(AFX_TARG_ENU)
+#ifdef _WIN32
+LANGUAGE 9, 1
+#pragma code_page(1252)
+#endif //_WIN32
+#include "res\Button.rc2"  // non-Microsoft Visual C++ edited resources
+#include "afxres.rc"         // Standard components
+#endif
+
+/////////////////////////////////////////////////////////////////////////////
+#endif    // not APSTUDIO_INVOKED
+

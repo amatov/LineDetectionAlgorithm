@@ -1,0 +1,124 @@
+//{{NO_DEPENDENCIES}}
+// Microsoft Developer Studio generated include file.
+// Used by Button.rc
+//
+#define IDD_ABOUTBOX                    100
+#define IDR_MAINFRAME                   128
+#define IDR_BUTTONTYPE                  129
+#define IDD_COMON                       130
+#define IDD_COMMON                      130
+#define IDD_LDETECT                     133
+#define IDD_CDETECT                     134
+#define IDD_AR                          135
+#define IDD_TEMP                        136
+#define IDC_BMP                         1007
+#define IDC_CFG                         1008
+#define IDC_RADIO2                      1013
+#define IDC_RADIO3                      1014
+#define IDC_RADIO4                      1015
+#define IDC_CAT2                        1016
+#define IDC_CONIC                       1016
+#define IDC_B_BMP                       1019
+#define IDC_B_SELECT_FILE               1019
+#define IDC_EDIT_BMP                    1020
+#define IDC_FILE_NAME                   1020
+#define IDC_B_CFG                       1021
+#define IDC_EDIT_CFG                    1022
+#define IDC_CYCLES                      1025
+#define IDC_CYCLES2                     1026
+#define IDC_STOP_PROP                   1027
+#define IDC_MAX_RETRY                   1028
+#define IDC_EPSILON                     1029
+#define IDC_MAX_NUM_SUB                 1030
+#define IDC_EDIT_CYCLES                 1031
+#define IDC_EDIT_STOP                   1032
+#define IDC_STOP_CY                     1032
+#define IDC_EDIT_PROP                   1033
+#define IDC_STOP_CY_PROP                1033
+#define IDC_EDIT5                       1034
+#define IDC_TEMP                        1034
+#define IDC_CLUSTER                     1034
+#define IDC_LINE_D                      1035
+#define IDC_EDIT_EPS                    1036
+#define IDC_EPS                         1036
+#define IDC_MAX_EDIT                    1037
+#define IDC_MAX_NB_SUBS                 1037
+#define IDC_EDIT_RETRY                  1038
+#define IDC_NB_RETRY                    1038
+#define IDC_EDIT_TEMP                   1039
+#define IDC_MANU_INI_TEMP               1039
+#define IDC_ALPHA                       1040
+#define IDC_EDIT_ALPHA                  1041
+#define IDC_NB_SUBS                     1041
+#define IDC_EXP                         1042
+#define IDC_EXP_TEMP                    1042
+#define IDC_BUTTON3                     1043
+#define IDC_TZERO                       1043
+#define IDC_BUTTON4                     1044
+#define IDC_EDIT_TZERO                  1044
+#define IDC_INI_TZERO                   1044
+#define IDC_AR                          1045
+#define IDC_UPDATE_TZERO                1045
+#define IDC_EDIT_ORDER                  1046
+#define IDC_EDIT_UPDATE_TZ              1046
+#define IDC_ORDER_AR                    1046
+#define IDC_ORDER                       1047
+#define IDC_ALPHA_TZ                    1047
+#define IDC_TEMP_AUT                    1048
+#define IDC_TEMP_MAN                    1049
+#define IDC_CHECK_TEMP_A                1050
+#define IDC_AUTO_INI_TEMP               1050
+#define IDC_B_TEMP                      1051
+#define IDC_EDIT_ALPHA_TZ               1051
+#define IDC_ALPHA_TZERO                 1051
+#define IDC_GRAPH                       1052
+#define IDC_GRAPHICAL_DISPLAY           1052
+#define IDC_LDETECT                     1053
+#define IDC_LD_BMP                      1054
+#define IDC_BMP_OR_NOT                  1054
+#define IDC_COLOR                       1055
+#define IDC_EDIT_NOISE                  1056
+#define IDC_NOISE                       1057
+#define IDC_DETECTION_TYPE              1058
+#define IDC_B_DETECTION_SET             1059
+#define IDC_NO_DISP                     1063
+#define IDC_NOISE1                      1065
+#define IDC_RADIO5                      1066
+#define IDC_DETECTION                   1067
+#define IDC_WINNOW                      1068
+#define IDC_CONTIGUOUS                  1069
+#define IDC_SEGMENT                     1070
+#define IDC_SEG_THRE                    1071
+#define IDC_SEG_EPSI                    1073
+#define IDC_LAST_AS_START               1074
+#define IDC_TAN_EST                     1075
+#define IDC_DELTA_C_MIN                 1076
+#define IDC_PARTIAL                     1077
+#define IDC_MON_WELL_CL                 1078
+#define IDC_DRAW_BAD_SUBS               1079
+#define IDC_RND                         1080
+#define IDC_RETRY_WITH_LAST             1081
+#define IDC_NO_PTS_RMV                  1082
+#define IDC_STOP_TEMP                   1083
+#define IDC_NO_CORR                     1084
+#define IDC_INDEX_MIN                   1085
+#define IDC_RND_ORIGIN                  1085
+#define IDC_INDEX_MAX                   1086
+#define IDC_AR_OUT_FILE                 1087
+#define IDC_MON_T                       1088
+#define IDC_MON_AB                      1089
+#define IDC_RESULT                      1090
+#define ID_EDIT_CONFIG                  32772
+#define ID_ACTION_START                 32773
+
+// Next default values for new objects
+// 
+#ifdef APSTUDIO_INVOKED
+#ifndef APSTUDIO_READONLY_SYMBOLS
+#define _APS_3D_CONTROLS                     1
+#define _APS_NEXT_RESOURCE_VALUE        138
+#define _APS_NEXT_COMMAND_VALUE         32774
+#define _APS_NEXT_CONTROL_VALUE         1091
+#define _APS_NEXT_SYMED_VALUE           101
+#endif
+#endif

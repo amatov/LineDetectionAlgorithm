@@ -1,0 +1,66 @@
+<html>
+<body>
+<pre>
+<h1>Build Log</h1>
+<h3>
+--------------------Configuration: Button - Win32 Debug--------------------
+</h3>
+<h3>Command Lines</h3>
+Creating command line "rc.exe /l 0x100c /fo"Debug/Button.res" /d "_DEBUG" /d "_AFXDLL" "E:\Button\Button.rc"" 
+Creating temporary file "C:\DOCUME~1\MATOV~1.DE-\LOCALS~1\Temp\RSP12E1.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Button.pch" /Yu"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\Button\ARDlg.cpp"
+"E:\Button\Button.cpp"
+"E:\Button\ButtonDoc.cpp"
+"E:\Button\ButtonView.cpp"
+"E:\Button\CDetectDlg.cpp"
+"E:\Button\CommonDlg.cpp"
+"E:\Button\LDetectDlg.cpp"
+"E:\Button\MainFrm.cpp"
+]
+Creating command line "cl.exe @"C:\DOCUME~1\MATOV~1.DE-\LOCALS~1\Temp\RSP12E1.tmp"" 
+Creating temporary file "C:\DOCUME~1\MATOV~1.DE-\LOCALS~1\Temp\RSP12E2.tmp" with contents
+[
+/nologo /MDd /W3 /Gm /GX /ZI /Od /D "WIN32" /D "_DEBUG" /D "_WINDOWS" /D "_AFXDLL" /D "_MBCS" /Fp"Debug/Button.pch" /Yc"stdafx.h" /Fo"Debug/" /Fd"Debug/" /FD /GZ /c 
+"E:\Button\StdAfx.cpp"
+]
+Creating command line "cl.exe @"C:\DOCUME~1\MATOV~1.DE-\LOCALS~1\Temp\RSP12E2.tmp"" 
+Creating temporary file "C:\DOCUME~1\MATOV~1.DE-\LOCALS~1\Temp\RSP12E3.tmp" with contents
+[
+/nologo /subsystem:windows /incremental:yes /pdb:"Debug/Button.pdb" /debug /machine:I386 /out:"Debug/Button.exe" /pdbtype:sept 
+.\Debug\ARDlg.obj
+.\Debug\Button.obj
+.\Debug\ButtonDoc.obj
+.\Debug\ButtonView.obj
+.\Debug\CDetectDlg.obj
+.\Debug\CommonDlg.obj
+.\Debug\LDetectDlg.obj
+.\Debug\MainFrm.obj
+.\Debug\StdAfx.obj
+.\Debug\Button.res
+]
+Creating command line "link.exe @"C:\DOCUME~1\MATOV~1.DE-\LOCALS~1\Temp\RSP12E3.tmp""
+<h3>Output Window</h3>
+Compiling resources...
+Compiling...
+StdAfx.cpp
+Compiling...
+ARDlg.cpp
+Button.cpp
+ButtonDoc.cpp
+ButtonView.cpp
+CDetectDlg.cpp
+CommonDlg.cpp
+LDetectDlg.cpp
+MainFrm.cpp
+Generating Code...
+Linking...
+
+
+
+<h3>Results</h3>
+Button.exe - 0 error(s), 0 warning(s)
+</pre>
+</body>
+</html>
