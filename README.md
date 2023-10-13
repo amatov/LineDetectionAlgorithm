@@ -1,1 +1,1 @@
-### The C++ code I wrote for a graphical user interface of a fast line detection computer vision algorithm (see PLIME folder) developed in the lab of Daniel Mlynek, PhD at EPFL "Fast Line Detection Algorithms Based on Combinatorial Optimization. 2001" 
+### The C++ code I wrote for a graphical user interface of a fast line detection computer vision algorithm (see the PLIME folder) developed in the lab of Daniel Mlynek, PhD at EPFL "Fast Line Detection Algorithms Based on Combinatorial Optimization. 2001" 
