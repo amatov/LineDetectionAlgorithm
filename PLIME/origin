@@ -1,0 +1,422 @@
+command_line.cc:536:  LDT->image_file_name[0] = '\0';
+command_line.cc:537:  LDT->bmp_flag = 0;
+command_line.cc:538:  LDT->bmp_out_flag = 0;
+command_line.cc:539:  LDT->cluster = 0;
+command_line.cc:540:  LDT->noise = 0;
+command_line.cc:541:  LDT->rnd_origin = 0;
+command_line.cc:542:  LDT->tan_estimation = 0;
+command_line.cc:543:  LDT->remove_bad_pts = 0; 
+command_line.cc:544:  LDT->image.background_color = 0;
+command_line.cc:545:  LDT->segment = 0;
+command_line.cc:546:  LDT->seg_win_threshold = 0;
+command_line.cc:547:  LDT->seg_epsilon = 0;
+command_line.cc:548:  LDT->image.dim.x = 0;
+command_line.cc:549:  LDT->image.dim.y = 0;
+command_line.cc:550:  LDT->last_as_start = 0;
+command_line.cc:555:      strcpy(LDT->image_file_name,argv[++i]);
+command_line.cc:558:      LDT->image.dim.x = atoi(argv[++i]);
+command_line.cc:559:      if (LDT->image.dim.x <= 0) exit_with_error ("Invalid value (dim_x)");
+command_line.cc:563:      LDT->image.dim.y = atoi(argv[++i]);
+command_line.cc:564:      if (LDT->image.dim.y <= 0) exit_with_error ("Invalid value (dim_y)");
+command_line.cc:568:      LDT->cluster = atoi(argv[++i]);
+command_line.cc:569:      if (LDT->cluster < 0)
+command_line.cc:575:     LDT->index_x.min = atoi(argv[++i]);
+command_line.cc:576:     LDT->index_y.min = atoi(argv[++i]);
+command_line.cc:577:     LDT->index_x.max = atoi(argv[++i]);
+command_line.cc:578:     LDT->index_y.max = atoi(argv[++i]);
+command_line.cc:579:     if (LDT->index_x.min<=0 || LDT->index_x.max<=0
+command_line.cc:580:	 || LDT->index_x.min >= LDT->index_x.max
+command_line.cc:581:	 || LDT->index_y.min<=0 || LDT->index_y.max<=0
+command_line.cc:582:	 || LDT->index_y.min >= LDT->index_y.max)
+command_line.cc:587:      LDT->tan_estimation = atoi(argv[++i]);
+command_line.cc:588:      if (LDT->tan_estimation < 0)
+command_line.cc:592:    if (!strcmp(argv[i],"-remove_bad_pts")) LDT->remove_bad_pts=1;
+command_line.cc:595:      LDT->noise = atof(argv[++i]);
+command_line.cc:596:      if (LDT->noise < 0)
+command_line.cc:600:    if (!strcmp(argv[i],"-bmp")) LDT->bmp_flag=1;
+command_line.cc:601:    if (!strcmp(argv[i],"-bmp_out")) LDT->bmp_out_flag=1;
+command_line.cc:603:    if (!strcmp(argv[i],"-rnd_origin")) LDT->rnd_origin=1;
+command_line.cc:605:    if (!strcmp(argv[i],"-last_as_start")) LDT->last_as_start=1;
+command_line.cc:608:      LDT->image.background_color = atoi(argv[++i]);
+command_line.cc:609:      if (LDT->image.background_color < 0)
+command_line.cc:614:      LDT->segment = atoi(argv[++i]);
+command_line.cc:615:      if (LDT->segment <= 0)
+command_line.cc:620:      LDT->seg_win_threshold = atoi(argv[++i]);
+command_line.cc:621:      if (LDT->seg_win_threshold <= 0)
+command_line.cc:626:      LDT->seg_epsilon = atof(argv[++i]);
+command_line.cc:627:      if (LDT->seg_epsilon < 0)
+command_line.cc:637:    if (P_ALGO->mon>0 && LDT->rnd_origin) exit_with_error
+command_line.cc:641:    if (LDT->tan_estimation && LDT->rnd_origin) exit_with_error
+command_line.cc:643:    if (LDT->segment && LDT->segment%2 == 0) exit_with_error
+command_line.cc:645:    if (LDT->seg_win_threshold == 0)
+command_line.cc:646:      LDT->seg_win_threshold = LDT->segment/2;
+command_line.cc:649:    if (P_ALGO->syst_in_file && LDT->image_file_name[0]!='\0')
+command_line.cc:652:	 P_ALGO->syst_out_file_name[0]!='\0') && LDT->cluster)
+command_line.cc:657:      if (LDT->bmp_out_flag)
+command_line.cc:659:      if (LDT->noise)
+command_line.cc:661:      if (LDT->image.dim.x==0 || LDT->image.dim.y==0)
+create_equations.cc:77:    for (y = 0; y < LDT->image.dim.y; y++)
+create_equations.cc:78:      for (x = 0; x < LDT->image.dim.x; x++)
+create_equations.cc:79:	if (LDT->image.im[y][x]!=LDT->image.background_color) LDT->tot_nb_pts++;
+create_equations.cc:83:    LDT->tot_nb_pts = 0;
+create_equations.cc:88:      LDT->tot_nb_pts++;
+create_equations.cc:90:    LDT->tot_nb_pts /= 3;
+create_equations.cc:95:  LDT->tot_nb_pts_no_noise = LDT->tot_nb_pts;
+create_equations.cc:96:  if (LDT->noise) {
+create_equations.cc:97:    for (int j=0; j < LDT->tot_nb_pts*LDT->noise/100; j++)
+create_equations.cc:98:      LDT->image.im[(int)floor(drand48()*LDT->image.dim.y)]
+create_equations.cc:99:	[(int)floor(drand48()*LDT->image.dim.x)]=255;
+create_equations.cc:100:    LDT->tot_nb_pts = 0;
+create_equations.cc:101:    for (y = 0; y < LDT->image.dim.y; y++)
+create_equations.cc:102:      for (x = 0; x < LDT->image.dim.x; x++)
+create_equations.cc:103:	if (LDT->image.im[y][x]!=LDT->image.background_color) LDT->tot_nb_pts++;
+create_equations.cc:106:  if (LDT->cluster==0) { /* no clustering */
+create_equations.cc:107:    LDT->cluster_edge = (int **)
+create_equations.cc:109:    LDT->cluster_edge[0][0] = 0;
+create_equations.cc:110:    LDT->cluster_edge[0][1] = LDT->image.dim.x;
+create_equations.cc:111:    LDT->cluster_edge[0][2] = 0;
+create_equations.cc:112:    LDT->cluster_edge[0][3] = LDT->image.dim.y;
+create_equations.cc:114:    LDT->SYST = (struct_eq_system *)malloc(sizeof(struct_eq_system));
+create_equations.cc:115:    LDT->SYST->nr = LDT->tot_nb_pts;
+create_equations.cc:116:    LDT->SYST->nc = 3;
+create_equations.cc:117:    LDT->SYST->A = (float **)
+create_equations.cc:118:      matrix_alloc(LDT->SYST->nr, LDT->SYST->nc, sizeof(float));
+create_equations.cc:119:    LDT->SYST->b = (float *) vector_alloc(LDT->SYST->nr, sizeof(float));
+create_equations.cc:124:      for (x=0; x < LDT->image.dim.x; x++)
+create_equations.cc:125:	for (y=0; y < LDT->image.dim.y; y++) {
+create_equations.cc:126:	  if (LDT->image.im[y][x]!=LDT->image.background_color) {
+create_equations.cc:127:	    (LDT->SYST->A)[i][0] = (x + .5 - (float)LDT->image.dim.x/2);   
+create_equations.cc:128:	    (LDT->SYST->A)[i][1] = (y + .5 - (float)LDT->image.dim.y/2);
+create_equations.cc:129:	    (LDT->SYST->A)[i][2] = 1;
+create_equations.cc:130:	    (LDT->SYST->b)[i] = 0;
+create_equations.cc:137:      for(int i=0; i<LDT->tot_nb_pts; i++) {
+create_equations.cc:138:	(LDT->SYST->A)[i/3][i%3] = read_float_from_file(eq_file);
+create_equations.cc:139:	(LDT->SYST->b)[i] = 0;
+create_equations.cc:146:    int cl2= LDT->cluster*LDT->cluster;
+create_equations.cc:147:    int cl = LDT->cluster;
+create_equations.cc:148:    int delta_x = LDT->image.dim.x/cl;
+create_equations.cc:149:    int delta_y = LDT->image.dim.y/cl;
+create_equations.cc:152:    LDT->cluster_edge = (int **)
+create_equations.cc:153:      matrix_alloc(LDT->cluster*LDT->cluster, 4, sizeof(int));
+create_equations.cc:155:    LDT->SYST_CLUSTERS = (struct_eq_system **)
+create_equations.cc:160:      LDT->SYST_CLUSTERS[j] = (struct_eq_system *)
+create_equations.cc:162:      LDT->SYST_CLUSTERS[j]->A=(float **)
+create_equations.cc:163:	vector_alloc(LDT->tot_nb_pts, sizeof(float *));
+create_equations.cc:164:      LDT->SYST_CLUSTERS[j]->b=(float *)
+create_equations.cc:165:	vector_alloc(LDT->tot_nb_pts, sizeof(float));
+create_equations.cc:168:      LDT->cluster_edge[j][0] = x_min = (j%cl)*delta_x;
+create_equations.cc:169:      LDT->cluster_edge[j][1] = x_max
+create_equations.cc:170:			      = j%cl!=cl-1 ? x_min+delta_x : LDT->image.dim.x;
+create_equations.cc:171:      LDT->cluster_edge[j][2] = y_min = (j/cl)*delta_y;
+create_equations.cc:172:      LDT->cluster_edge[j][3] = y_max
+create_equations.cc:173:			      = j/cl!=cl-1 ? y_min+delta_y : LDT->image.dim.y;
+create_equations.cc:178:	  if (LDT->image.im[y][x]!=LDT->image.background_color) {
+create_equations.cc:179:	    LDT->SYST_CLUSTERS[j]->A[i] = (float *)
+create_equations.cc:181:	    LDT->SYST_CLUSTERS[j]->A[i][0] = (x + .5 - (float)LDT->image.dim.x/2);   
+create_equations.cc:182:	    LDT->SYST_CLUSTERS[j]->A[i][1] = (y + .5 - (float)LDT->image.dim.y/2);
+create_equations.cc:183:	    LDT->SYST_CLUSTERS[j]->A[i][2] = 1;
+create_equations.cc:184:	    LDT->SYST_CLUSTERS[j]->b[i] = 0;
+create_equations.cc:189:      LDT->SYST_CLUSTERS[j]->A=(float **)
+create_equations.cc:190:	realloc(LDT->SYST_CLUSTERS[j]->A,i*sizeof(float *));
+create_equations.cc:191:      LDT->SYST_CLUSTERS[j]->b=(float *)
+create_equations.cc:192:	realloc(LDT->SYST_CLUSTERS[j]->b,i*sizeof(float));
+create_equations.cc:193:      LDT->SYST_CLUSTERS[j]->nc = 3;
+create_equations.cc:194:      LDT->SYST_CLUSTERS[j]->nr = i;
+data_output.cc:342:  for (i=0; i<=P_ALGO->max_num_subsys; i++) sizes[i] = LDT->sizes[i];
+data_output.cc:355:  P_ALGO->BENCH->result *= 100 / (float)LDT->tot_nb_pts_no_noise;
+data_output.cc:366:  LDT->sum_xi=0;
+data_output.cc:367:  LDT->a_lms=0;
+data_output.cc:369:  for (i=0; i<LDT->tot_nb_pts; i++) {
+data_output.cc:370:    m_x+=LDT->SYST->A[i][0];
+data_output.cc:371:    m_y+=LDT->SYST->A[i][1];
+data_output.cc:373:  m_x/=LDT->tot_nb_pts;
+data_output.cc:374:  m_y/=LDT->tot_nb_pts;
+data_output.cc:376:  for (i=0; i<LDT->tot_nb_pts; i++)
+data_output.cc:377:    LDT->sum_xi+=(LDT->SYST->A[i][0]-m_x)*(LDT->SYST->A[i][0]-m_x);
+data_output.cc:379:  for (i=0; i<LDT->tot_nb_pts; i++)
+data_output.cc:380:    LDT->a_lms+=(LDT->SYST->A[i][0]-m_x)*(LDT->SYST->A[i][1]-m_y);
+data_output.cc:382:  LDT->a_lms/=LDT->sum_xi;
+data_output.cc:388:  if (LDT->tan_estimation)
+data_output.cc:397:    printf ("Input file   : %s\n",LDT->image_file_name);
+data_output.cc:398:    printf ("Images size  : %d %d\n",LDT->image.dim.x,LDT->image.dim.y);
+data_output.cc:399:    printf ("Add. noise   : %4.1f%%\n",LDT->noise);
+data_output.cc:402:  if (LDT->tan_estimation)
+data_output.cc:404:	   LDT->tan_estimation*2+1); 
+data_output.cc:432:  if (LDT->rnd_origin)
+data_output.cc:435:  if (LDT->segment) {
+data_output.cc:436:    printf("Segmentation with sliding win : %d pixel(s)\n",LDT->segment);
+data_output.cc:437:    printf("                  threshold   : %d\n",LDT->seg_win_threshold);
+data_output.cc:438:    printf("                  epsilon     : %0.2f\n",LDT->seg_epsilon);
+data_output.cc:444:  printf ("Initial number of equations: %d\n",LDT->tot_nb_pts);
+data_output.cc:459:  im = (unsigned char **) matrix_alloc(LDT->image.dim.y, LDT->image.dim.x,
+data_output.cc:461:  for(i=0; i<LDT->image.dim.y; i++)
+data_output.cc:462:    for(j=0; j<LDT->image.dim.x; j++) im[i][j]=0;
+data_output.cc:464:  if (LDT->cluster) {
+data_output.cc:465:    int cl = LDT->cluster;
+data_output.cc:468:      x = i*LDT->image.dim.x/cl;
+data_output.cc:469:      y = i*LDT->image.dim.y/cl;
+data_output.cc:470:      put_line_in_image(im, LDT->image.dim, x, 0, x, 1,100);
+data_output.cc:471:      put_line_in_image(im, LDT->image.dim, 0, y, 1, y,100);
+data_output.cc:476:  if (LDT->segment) { /* segment detection */
+data_output.cc:478:      put_segment_in_image(im, LDT->image.dim, LDT->segments[i][0],
+data_output.cc:479:			LDT->segments[i][1], LDT->segments[i][2],
+data_output.cc:480:			LDT->segments[i][3], 200 + LDT->corr_cl[i]);
+data_output.cc:484:      if (LDT->sizes[i] >= P_ALGO->stop_cycles) {
+data_output.cc:485:	s = LDT->solutions[i];
+data_output.cc:498:	x1 += (float)LDT->image.dim.x/2;
+data_output.cc:499:	y1 += (float)LDT->image.dim.y/2;
+data_output.cc:500:	x2 += (float)LDT->image.dim.x/2;
+data_output.cc:501:	y2 += (float)LDT->image.dim.y/2;
+data_output.cc:502:	put_line_in_image(im, LDT->image.dim, x1, y1, x2, y2,
+data_output.cc:503:			  200 + LDT->corr_cl[i]);
+data_output.cc:508:  for (i=0; i<LDT->image.dim.y; i++)
+data_output.cc:509:    for (j=0; j<LDT->image.dim.x; j++) {
+data_output.cc:510:      if (LDT->image.im[i][j] != LDT->image.background_color
+data_output.cc:512:      if (LDT->image.im[i][j] != LDT->image.background_color
+data_output.cc:516:  sprintf(file_name,"%s_out.bmp",LDT->image_file_name);
+data_output.cc:517:  save_bmp_8b(file_name, im, LDT->image.dim);
+data_output.cc:519:  matrix_free((void **)im,LDT->image.dim.y);
+leon.cc:111:    LDT->SYST=(struct_eq_system *) malloc(sizeof(struct_eq_system));
+leon.cc:122:      LDT->TK = (struct_tk*)malloc(sizeof(struct_tk));
+leon.cc:123:      LDT->TK->interp = init_TclTk(argv[0]);
+leon.cc:129:    create_eq_syst_files(LDT->SYST, &P_ALGO);
+leon.cc:247:    LDT->current_cluster = 0;
+leon.cc:249:      if (LDT->cluster) {
+leon.cc:250:	LDT->origin.x = 0;
+leon.cc:251:	LDT->origin.y = 0;
+leon.cc:252:	LDT->SYST = LDT->SYST_CLUSTERS[LDT->current_cluster];
+leon.cc:253:	ALGO.nb0_couples = ALGO.nb_couples = LDT->SYST->nr;
+leon.cc:255:	printf("\nCluster #%d (Nb_pts:%d)\n",LDT->current_cluster+1,
+leon.cc:270:	LDT->sizes[ALGO.step-1] = ALGO.last_subsys_size;
+leon.cc:271:	LDT->corr_cl[ALGO.step-1] = LDT->current_cluster+1;
+leon.cc:279:	      LDT->nb_retry[ALGO.step]++;
+leon.cc:289:      LDT->current_cluster++;
+leon.cc:292:    while (LDT->current_cluster < LDT->cluster*LDT->cluster);
+leon.cc:496:	     LDT->sizes[i], LDT->nb_retry[i], LDT->corr_cl[i],
+leon.cc:497:	     LDT->solutions[i][0], LDT->solutions[i][1],
+leon.cc:498:	     LDT->sq_error[i]/LDT->sizes[i], LDT->mean[i]/LDT->sizes[i]);
+leon.cc:501:    if (LDT->bmp_flag && LDT->bmp_out_flag)
+leon.cc:516://     index_max_size = index_max_value(LDT->sizes, ALGO.num_extr_subsys);
+leon.cc:518:// //	P_ALGO.partial, LDT->sq_error[index_max_size]/LDT->sizes[index_max_size],
+leon.cc:519:// //	LDT->mean[index_max_size]/LDT->sizes[index_max_size], P_ALGO.BENCH->time,
+leon.cc:522://     pente = LDT->solutions[index_max_size][1]/LDT->solutions[index_max_size][0];
+leon.cc:526://        round_to_int(P_ALGO.BENCH->result*100), LDT->a_lms, LDT->sum_xi);
+leon.cc:530:    if (P_ALGO.graph) close_TclTk(LDT->TK->interp);
+line_detect_tk.cc:21:  sprintf(str,"set DIM_X %d",LDT->image.dim.x);
+line_detect_tk.cc:22:  Tcl_Eval(LDT->TK->interp, str);
+line_detect_tk.cc:23:  sprintf(str,"set DIM_Y %d",LDT->image.dim.y);
+line_detect_tk.cc:24:  Tcl_Eval(LDT->TK->interp, str);
+line_detect_tk.cc:25:  Tcl_Eval(LDT->TK->interp, "set LDT_F .ldt");
+line_detect_tk.cc:26:  Tcl_Eval(LDT->TK->interp, "set LDT_C .canvas");
+line_detect_tk.cc:27:  strcpy (LDT->TK->canvas_tag, ".ldt.canvas");
+line_detect_tk.cc:31:  code = Tcl_EvalFile(LDT->TK->interp, "line_detect.tcl");
+line_detect_tk.cc:36:  if (LDT->cluster) {
+line_detect_tk.cc:37:    int cl = LDT->cluster;
+line_detect_tk.cc:40:       begin.x = end.x = i*LDT->image.dim.x/cl;
+line_detect_tk.cc:42:       end.y = LDT->image.dim.y-1;
+line_detect_tk.cc:43:      TK_create_line(LDT->TK, begin, end, CLUSTER_EDGES_COLOR);
+line_detect_tk.cc:45:       begin.y = end.y = i*LDT->image.dim.y/cl;
+line_detect_tk.cc:46:       end.x = LDT->image.dim.x-1;
+line_detect_tk.cc:47:      TK_create_line(LDT->TK, begin, end, CLUSTER_EDGES_COLOR);
+line_detect_tk.cc:139:  line_detect_tk_create_line (LDT->TK, LDT->last_cycle_starting_point,
+line_detect_tk.cc:140:			      LDT->image.dim, START_POINT_LINE_COLOR,
+line_detect_tk.cc:151:  Tcl_Eval(LDT->TK->interp, str);
+line_detect_tk.cc:164:    if (LDT->segment) { /* segment detection */
+line_detect_tk.cc:165:      line_detect_tk_create_segment (LDT->TK, LDT->segments[ALGO->step-1],
+line_detect_tk.cc:169:      line_detect_tk_create_line (LDT->TK, LDT->solutions[ALGO->step-1],
+line_detect_tk.cc:170:				  LDT->image.dim, GOOD_LINE_COLOR, NO_TAG);
+line_detect_tk.cc:175:      line_detect_tk_create_line (LDT->TK, LDT->solutions[ALGO->step-1],
+line_detect_tk.cc:176:				  LDT->image.dim, ERR_LINE_COLOR, NO_TAG);
+line_detect_tk.cc:183:  cross.x = LDT->origin.x + LDT->image.dim.x/2;
+line_detect_tk.cc:184:  cross.y = LDT->origin.y + LDT->image.dim.y/2;
+line_detect_tk.cc:185:  TK_create_cross (LDT->TK, cross, CROSS_COLOR);
+line_detect_tk.cc:218:    pt.x = (int)(LDT->SYST->A[ALGO->equations[i]][0]
+line_detect_tk.cc:219:		 - LDT->origin.x + LDT->image.dim.x/2);
+line_detect_tk.cc:220:    pt.y = (int)(LDT->SYST->A[ALGO->equations[i]][1]
+line_detect_tk.cc:221:		 - LDT->origin.y + LDT->image.dim.y/2);
+line_detect_tk.cc:222:    TK_create_cross(LDT->TK, pt, NON_CLASSIFIED_POINTS_COLOR);
+line_detect_tk.cc:236:  Tcl_Eval(LDT->TK->interp, str);
+line_detect_tk.cc:240:  if (LDT->rnd_origin) {
+line_detect_tk.cc:242:    float aux = 1 + x[0]*LDT->origin.x + x[1]*LDT->origin.y;
+line_detect_tk.cc:247:      (LDT->TK, new_x,LDT->image.dim, GOOD_LINE_COLOR, LINE_TAG);
+line_detect_tk.cc:250:	 (LDT->TK, x,LDT->image.dim, GOOD_LINE_COLOR, LINE_TAG);
+read_data.cc:175:  if (LDT->bmp_flag) { /* input file is BMP */
+read_data.cc:178:    sprintf(bmp_file_name,"%s.bmp",LDT->image_file_name);
+read_data.cc:182:    LDT->image.im = load_bmp_8b(bmp_file_name, &LDT->image.dim);
+read_data.cc:186:  image_file= fopen (LDT->image_file_name,"r");
+read_data.cc:187:  if (image_file==NULL) exit_with_error ("Can't open file",LDT->image_file_name);
+read_data.cc:190:  LDT->image.im=(unsigned char **)
+read_data.cc:191:    matrix_alloc(LDT->image.dim.x, LDT->image.dim.y, sizeof(unsigned char));
+read_data.cc:193:  for (i=0; i<LDT->image.dim.y; i++)
+read_data.cc:194:    for (j=0; j<LDT->image.dim.x; j++)
+read_data.cc:195:      LDT->image.im[i][j]=(unsigned char)read_int_from_file(image_file);
+read_data.cc:205:  ALGO->nb0_couples = ALGO->nb_couples = LDT->SYST->nr;
+read_data.cc:211:  ALGO->equations = (int *) vector_alloc(LDT->tot_nb_pts, sizeof(int));
+read_data.cc:213:  //  ALGO->weight=(float *) vector_alloc(LDT->SYST->nc, sizeof(float));
+read_data.cc:216:  LDT->solutions = (float **)
+read_data.cc:218:    //    matrix_alloc(P_ALGO->max_num_subsys+1, LDT->SYST->nc, sizeof(float));
+read_data.cc:219:  LDT->sizes = (int *) vector_alloc(P_ALGO->max_num_subsys+1, sizeof(int));
+read_data.cc:220:  LDT->corr_cl = (int *) vector_alloc(P_ALGO->max_num_subsys+1, sizeof(int));
+read_data.cc:222:  LDT->nb_retry = (int *) vector_alloc(P_ALGO->max_num_subsys+1, sizeof(int));
+read_data.cc:223:  for (i=0; i<P_ALGO->max_num_subsys+1; i++) LDT->nb_retry[i]=0;
+read_data.cc:224:  if (LDT->segment)
+read_data.cc:225:    LDT->segments = (int**) matrix_alloc(P_ALGO->max_num_subsys+1, 4,sizeof(int));
+read_data.cc:227:  LDT->mean = (float *) vector_alloc(P_ALGO->max_num_subsys+1, sizeof(float));
+read_data.cc:228:  LDT->sq_error = (float *) vector_alloc(P_ALGO->max_num_subsys+1, sizeof(float));
+read_data.cc:229:  for (i=0; i<P_ALGO->max_num_subsys+1; i++) LDT->sq_error[i]=LDT->mean[i]=0;
+read_data.cc:232:  LDT->last_cycle_starting_point = (float *) vector_alloc(3,sizeof(float));
+search_biggest_subsystem_LDT.cc:34:  if (LDT->last_as_start == 1 && ALGO->step) {
+search_biggest_subsystem_LDT.cc:35:    x[0] = LDT->solutions[ALGO->step-1][0];
+search_biggest_subsystem_LDT.cc:36:    x[1] = LDT->solutions[ALGO->step-1][1];
+search_biggest_subsystem_LDT.cc:37:    x[2] = LDT->solutions[ALGO->step-1][2];	
+search_biggest_subsystem_LDT.cc:39:    if (LDT->rnd_origin) {
+search_biggest_subsystem_LDT.cc:40:      float aux = 1 + x[0]*LDT->origin.x + x[1]*LDT->origin.y;
+search_biggest_subsystem_LDT.cc:48:    float x1 = LDT->SYST->A[i][0];
+search_biggest_subsystem_LDT.cc:49:    float y1 = LDT->SYST->A[i][1];
+search_biggest_subsystem_LDT.cc:51:    float x2 = LDT->SYST->A[i][0];
+search_biggest_subsystem_LDT.cc:52:    float y2 = LDT->SYST->A[i][1];
+search_biggest_subsystem_LDT.cc:66:    if (LDT->nb_retry[ALGO->step]==1)
+search_biggest_subsystem_LDT.cc:67:      printf("Retry #%3d", LDT->nb_retry[ALGO->step]);
+search_biggest_subsystem_LDT.cc:69:      printf("\b\b\b%3d", LDT->nb_retry[ALGO->step]);
+search_biggest_subsystem_LDT.cc:73:  LDT->last_cycle_starting_point[0] = x[0];
+search_biggest_subsystem_LDT.cc:74:  LDT->last_cycle_starting_point[1] = x[1];
+search_biggest_subsystem_LDT.cc:75:  LDT->last_cycle_starting_point[2] = x[2];
+search_biggest_subsystem_LDT.cc:96:    float **A = LDT->SYST->A;
+search_biggest_subsystem_LDT.cc:97:    int nc = LDT->SYST->nc;
+search_biggest_subsystem_LDT.cc:108:	      ALGO->step+1,LDT->nb_retry[ALGO->step]);
+search_biggest_subsystem_LDT.cc:114:    if (LDT->rnd_origin) {
+search_biggest_subsystem_LDT.cc:115:      point_2d_int old_origin = LDT->origin;
+search_biggest_subsystem_LDT.cc:118:      if (LDT->cluster) {
+search_biggest_subsystem_LDT.cc:119:       #define CC LDT->current_cluster
+search_biggest_subsystem_LDT.cc:120:	delta.x = LDT->cluster_edge[CC][1] - LDT->cluster_edge[CC][0];
+search_biggest_subsystem_LDT.cc:121:	delta.y = LDT->cluster_edge[CC][3] - LDT->cluster_edge[CC][2];
+search_biggest_subsystem_LDT.cc:122:	o_cl.x = LDT->image.dim.x/2 - LDT->cluster_edge[CC][0];
+search_biggest_subsystem_LDT.cc:123:	o_cl.y = LDT->image.dim.y/2 - LDT->cluster_edge[CC][2];
+search_biggest_subsystem_LDT.cc:127:	delta.x = LDT->image.dim.x;
+search_biggest_subsystem_LDT.cc:128:	delta.y = LDT->image.dim.y;
+search_biggest_subsystem_LDT.cc:129:	o_cl.x = LDT->image.dim.x / 2;
+search_biggest_subsystem_LDT.cc:130:	o_cl.y = LDT->image.dim.y / 2;
+search_biggest_subsystem_LDT.cc:132:      LDT->origin.x = (int)floor((float)rand()/32767 * delta.x - o_cl.x);
+search_biggest_subsystem_LDT.cc:133:      LDT->origin.y = (int)floor((float)rand()/32767 * delta.y - o_cl.y);
+search_biggest_subsystem_LDT.cc:135:	A[eq[q]][0] += LDT->origin.x - old_origin.x;
+search_biggest_subsystem_LDT.cc:136:	A[eq[q]][1] += LDT->origin.y - old_origin.y;
+search_biggest_subsystem_LDT.cc:145://printf("step: %d start: %f %f %f origin: %d %d\n",ALGO->step,x[0],x[1],x[2],LDT->origin.x,LDT->origin.y);
+search_biggest_subsystem_LDT.cc:155:      calculate_v(&avg, x, LDT->SYST, ALGO);
+search_biggest_subsystem_LDT.cc:160:      calculate_v(&avg, x, LDT->SYST, ALGO);
+search_biggest_subsystem_LDT.cc:176:	calculate_v(&avg, x, LDT->SYST, ALGO);
+search_biggest_subsystem_LDT.cc:210:	if (LDT->tan_estimation == 0) {  /* ****** AMS relaxation algorithm */
+search_biggest_subsystem_LDT.cc:253:	  current_pt[0] = (int)(LDT->SYST->A[i][0]-0.5+(float)LDT->image.dim.x/2);
+search_biggest_subsystem_LDT.cc:254:	  current_pt[1] = (int)(LDT->SYST->A[i][1]-0.5+(float)LDT->image.dim.y/2);
+search_biggest_subsystem_LDT.cc:255:	  if (find_tangente_of_edge(LDT->image, (float*)&current_pt,
+search_biggest_subsystem_LDT.cc:256:				    LDT->tan_estimation,
+search_biggest_subsystem_LDT.cc:257:				    LDT->remove_bad_pts, &(LDT->u))
+search_biggest_subsystem_LDT.cc:266:		    if (float aux = LDT->u.x*A[i][1] - LDT->u.y*A[i][0]) {
+search_biggest_subsystem_LDT.cc:267:		      x[0] += ti/t0 * exp(-ABS(dist/2)/ti)*(LDT->u.y/aux - x[0]);
+search_biggest_subsystem_LDT.cc:268:		      x[1] += ti/t0 * exp(-ABS(dist/2)/ti)*(-LDT->u.x/aux - x[1]);
+search_biggest_subsystem_LDT.cc:312:      LDT->solutions[ALGO->step-1][i] = x[i];
+search_biggest_subsystem_LDT.cc:325:    if (LDT->rnd_origin) {
+search_biggest_subsystem_LDT.cc:326:      float aux = 1 + x[0]*LDT->origin.x + x[1]*LDT->origin.y;
+search_biggest_subsystem_LDT.cc:327:      LDT->solutions[ALGO->step-1][0] /= aux;
+search_biggest_subsystem_LDT.cc:328:      LDT->solutions[ALGO->step-1][1] /= aux;
+update_equations.cc:136:#define X_MIN LDT->cluster_edge[LDT->current_cluster][0]
+update_equations.cc:137:#define X_MAX LDT->cluster_edge[LDT->current_cluster][1]
+update_equations.cc:138:#define Y_MIN LDT->cluster_edge[LDT->current_cluster][2]
+update_equations.cc:139:#define Y_MAX LDT->cluster_edge[LDT->current_cluster][3]
+update_equations.cc:151:  for (int i=-(int)LDT->seg_epsilon; i<=(int)LDT->seg_epsilon; i++) {
+update_equations.cc:158:      if (LDT->image.im[y][x]!=LDT->image.background_color) nb_pts++;
+update_equations.cc:175:  x = LDT->solutions[ALGO->step-1];
+update_equations.cc:180:  if (LDT->segment) { /* segment analysis */
+update_equations.cc:183:    int *window = (int*)calloc(LDT->segment, sizeof(int));
+update_equations.cc:193:    abs_c = x[2] + x[0]*(LDT->origin.x + 0.5 - LDT->image.dim.x/2) 
+update_equations.cc:194:      + x[1]*(LDT->origin.y + 0.5 - LDT->image.dim.y/2);
+update_equations.cc:235:	if (tot_pts >= LDT->seg_win_threshold) {
+update_equations.cc:241:	if (tot_pts < LDT->seg_win_threshold) {
+update_equations.cc:242://	if (tot_pts < LDT->seg_win_threshold || nb_pts==0) {
+update_equations.cc:252:      tot_pts -= window[i%LDT->segment];
+update_equations.cc:253:      window[i%LDT->segment] = nb_pts;
+update_equations.cc:275:    segment_length = max_value(segment_length-LDT->segment/2,0);
+update_equations.cc:276:    LDT->segments[ALGO->step-1][0] = (int)(start_pt.x + segment_start*u.x);
+update_equations.cc:277:    LDT->segments[ALGO->step-1][1] = (int)(start_pt.y + segment_start*u.y);
+update_equations.cc:278:    LDT->segments[ALGO->step-1][2] =
+update_equations.cc:280:    LDT->segments[ALGO->step-1][3] =
+update_equations.cc:283:    mid_segment.x = (LDT->segments[ALGO->step-1][0] +
+update_equations.cc:284:		     LDT->segments[ALGO->step-1][2])/2;
+update_equations.cc:285:    mid_segment.y = (LDT->segments[ALGO->step-1][1] +
+update_equations.cc:286:		     LDT->segments[ALGO->step-1][3])/2;
+update_equations.cc:287:    mid_segment.x -= (int)((float)LDT->image.dim.x/2 - 0.5 - LDT->origin.x);
+update_equations.cc:288:    mid_segment.y -= (int)((float)LDT->image.dim.y/2 - 0.5 - LDT->origin.y);
+update_equations.cc:298:      pt_line_distance = qprod_scal(x, LDT->SYST->A[k], LDT->SYST->nc)
+update_equations.cc:301:      pt_med_line_distance = u.x*LDT->SYST->A[k][0]+u.y*LDT->SYST->A[k][1]
+update_equations.cc:309://       ,LDT->segments[ALGO->step-1][0]
+update_equations.cc:310://       ,LDT->segments[ALGO->step-1][1]
+update_equations.cc:311://       ,LDT->segments[ALGO->step-1][2]
+update_equations.cc:312://       ,LDT->segments[ALGO->step-1][3]);
+update_equations.cc:319:	pt_line_distance = qprod_scal(x, LDT->SYST->A[k], LDT->SYST->nc)
+update_equations.cc:322:	pt_med_line_distance = u.x*LDT->SYST->A[k][0]+u.y*LDT->SYST->A[k][1]
+update_equations.cc:330:	    current_pt.x = LDT->SYST->A[k][0] - LDT->origin.x
+update_equations.cc:331:	      + LDT->image.dim.x/2;
+update_equations.cc:332:	    current_pt.y = LDT->SYST->A[k][1] - LDT->origin.y
+update_equations.cc:333:	      + LDT->image.dim.y/2;
+update_equations.cc:334:	    line_detect_tk_flag_classified(LDT->TK,
+update_equations.cc:338:	  LDT->sq_error[ALGO->step-1] += pt_line_distance * pt_line_distance;
+update_equations.cc:339:	  LDT->mean[ALGO->step-1] += pt_line_distance;
+update_equations.cc:351:      pt_line_distance = qprod_scal(x, LDT->SYST->A[k], LDT->SYST->nc)/norm_ab;
+update_equations.cc:356:	  current_pt.x = LDT->SYST->A[k][0] - LDT->origin.x
+update_equations.cc:357:	    + LDT->image.dim.x/2;
+update_equations.cc:358:	  current_pt.y = LDT->SYST->A[k][1] - LDT->origin.y
+update_equations.cc:359:	    + LDT->image.dim.y/2;
+update_equations.cc:360:	  line_detect_tk_flag_classified(LDT->TK,
+update_equations.cc:364:	LDT->sq_error[ALGO->step-1] += pt_line_distance * pt_line_distance;
+update_equations.cc:365:	LDT->mean[ALGO->step-1] += pt_line_distance;
+update_equations_sav.cc:136:#define X_MIN LDT->cluster_edge[LDT->current_cluster][0]
+update_equations_sav.cc:137:#define X_MAX LDT->cluster_edge[LDT->current_cluster][1]
+update_equations_sav.cc:138:#define Y_MIN LDT->cluster_edge[LDT->current_cluster][2]
+update_equations_sav.cc:139:#define Y_MAX LDT->cluster_edge[LDT->current_cluster][3]
+update_equations_sav.cc:159:      if (LDT->image.im[y][x]!=LDT->image.background_color) nb_pts++;
+update_equations_sav.cc:177:  xx[0] = LDT->solutions[ALGO->step-1][0] / LDT->solutions[ALGO->step-1][2];
+update_equations_sav.cc:178:  xx[1] = LDT->solutions[ALGO->step-1][1] / LDT->solutions[ALGO->step-1][2];
+update_equations_sav.cc:186:  if (LDT->segment) { /* segment analysis */
+update_equations_sav.cc:189:    int *window = (int*)calloc(LDT->segment, sizeof(int));
+update_equations_sav.cc:197://    int threshold = (int)(eps_threshold*LDT->segment);
+update_equations_sav.cc:202:    float aux = 1 + x[0]*(LDT->origin.x + 0.5 - LDT->image.dim.x/2) 
+update_equations_sav.cc:203:      + x[1]*(LDT->origin.y + 0.5 - LDT->image.dim.y/2);
+update_equations_sav.cc:235:    for (i=0; i<=LDT->segment/2; i++) {
+update_equations_sav.cc:239:      nb_pts = nb_pts_2epsilon(LDT, current_pt0, u, (int)LDT->seg_epsilon);
+update_equations_sav.cc:243:    if (tot_pts >= LDT->seg_win_threshold) flag = 1;
+update_equations_sav.cc:247:    int nb_pts = nb_pts_2epsilon(LDT, current_pt0, u, (int)LDT->seg_epsilon);
+update_equations_sav.cc:253:	if (tot_pts >= LDT->seg_win_threshold) {
+update_equations_sav.cc:260://	if (tot_pts < LDT->seg_win_threshold) {
+update_equations_sav.cc:261:	if (tot_pts < LDT->seg_win_threshold || nb_pts == 0) {
+update_equations_sav.cc:271:      tot_pts -= window[i%LDT->segment];
+update_equations_sav.cc:272:      window[i%LDT->segment] = nb_pts;
+update_equations_sav.cc:281:      nb_pts = nb_pts_2epsilon(LDT, current_pt0, u, (int)LDT->seg_epsilon);
+update_equations_sav.cc:294:    segment_length = max_value(segment_length-LDT->segment/2,0);
+update_equations_sav.cc:295:    LDT->segments[ALGO->step-1][0] = (int)(start_pt.x + segment_start*u.x);
+update_equations_sav.cc:296:    LDT->segments[ALGO->step-1][1] = (int)(start_pt.y + segment_start*u.y);
+update_equations_sav.cc:297:    LDT->segments[ALGO->step-1][2] =
+update_equations_sav.cc:299:    LDT->segments[ALGO->step-1][3] =
+update_equations_sav.cc:302:    mid_segment.x = (LDT->segments[ALGO->step-1][0] +
+update_equations_sav.cc:303:		     LDT->segments[ALGO->step-1][2])/2;
+update_equations_sav.cc:304:    mid_segment.y = (LDT->segments[ALGO->step-1][1] +
+update_equations_sav.cc:305:		     LDT->segments[ALGO->step-1][3])/2;
+update_equations_sav.cc:306:    mid_segment.x -= (int)((float)LDT->image.dim.x/2 - 0.5 - LDT->origin.x);
+update_equations_sav.cc:307:    mid_segment.y -= (int)((float)LDT->image.dim.y/2 - 0.5 - LDT->origin.y);
+update_equations_sav.cc:316:      pt_line_distance = qprod_scal(x, LDT->SYST->A[k], LDT->SYST->nc)/norm_ab;
+update_equations_sav.cc:318:      pt_med_line_distance = u.x*LDT->SYST->A[k][0]+u.y*LDT->SYST->A[k][1]+aux;
+update_equations_sav.cc:331:	pt_line_distance = qprod_scal(x, LDT->SYST->A[k], LDT->SYST->nc)/norm_ab;
+update_equations_sav.cc:333:	pt_med_line_distance = u.x*LDT->SYST->A[k][0]+u.y*LDT->SYST->A[k][1]+aux;
+update_equations_sav.cc:340:	    current_pt.x = LDT->SYST->A[k][0] - LDT->origin.x
+update_equations_sav.cc:341:	      + LDT->image.dim.x/2;
+update_equations_sav.cc:342:	    current_pt.y = LDT->SYST->A[k][1] - LDT->origin.y
+update_equations_sav.cc:343:	      + LDT->image.dim.y/2;
+update_equations_sav.cc:344:	    line_detect_tk_flag_classified(LDT->TK,
+update_equations_sav.cc:348:	  LDT->sq_error[ALGO->step-1] += pt_line_distance * pt_line_distance;
+update_equations_sav.cc:349:	  LDT->mean[ALGO->step-1] += pt_line_distance;
+update_equations_sav.cc:361:      pt_line_distance = qprod_scal(x, LDT->SYST->A[k], LDT->SYST->nc)/norm_ab;
+update_equations_sav.cc:366:	  current_pt.x = LDT->SYST->A[k][0] - LDT->origin.x
+update_equations_sav.cc:367:	    + LDT->image.dim.x/2;
+update_equations_sav.cc:368:	  current_pt.y = LDT->SYST->A[k][1] - LDT->origin.y
+update_equations_sav.cc:369:	    + LDT->image.dim.y/2;
+update_equations_sav.cc:370:	  line_detect_tk_flag_classified(LDT->TK,
+update_equations_sav.cc:374:	LDT->sq_error[ALGO->step-1] += pt_line_distance * pt_line_distance;
+update_equations_sav.cc:375:	LDT->mean[ALGO->step-1] += pt_line_distance;

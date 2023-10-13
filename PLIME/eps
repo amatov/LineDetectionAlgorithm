@@ -1,0 +1,7 @@
+#!/bin/csh -f
+
+plime -F CFG/opt.cfg -x OPT/rand_mat -dim_x 20 -dim_y 20 -epsilon 0.45 >> file
+plime -F CFG/opt.cfg -x OPT/rand_mat -dim_x 20 -dim_y 20 -epsilon 0.55 >> file
+plime -F CFG/opt.cfg -x OPT/rand_mat -dim_x 20 -dim_y 20 -epsilon 0.60 >> file
+plime -F CFG/opt.cfg -x OPT/rand_mat -dim_x 20 -dim_y 20 -epsilon 0.65 >> file
+plime -F CFG/opt.cfg -x OPT/rand_mat -dim_x 20 -dim_y 20 -epsilon 0.70 >> file

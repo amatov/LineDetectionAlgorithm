@@ -1,0 +1,338 @@
+/****************************************************************************/
+/**                                                                        **/
+/** This function implements the thermal relaxation algorithm              **/
+/** which is applied to equation systems. The goal is to detect the        **/
+/** dominant subsystem having one particular solution.                     **/
+/**                                                                        **/
+/****************************************************************************/
+
+#include <stdio.h>
+#include <stdlib.h>
+#include <math.h>
+
+#include "leon.h"
+#include "math_functions.h"
+#include "struct.h"
+#include "memory_alloc.h"
+#include "data_output.h"
+#include "update_equations.h"
+#include "utils.h"
+
+#include "conic_detect_tk.h"
+
+#include "inline_functions.cc"
+
+#define EQ ALGO->equations
+
+/* temp */
+#include "utils.h"
+
+/****************************************************************************/
+/* Conic_2 detection (circle)  						    */
+/****************************************************************************/
+
+/****************************************************************************/
+/* Initialisation of solution for circle detection	       		    */
+/****************************************************************************/
+void solution_initialisation_CDT2(struct_cdetect *CDT, struct_algo *ALGO,
+				 float *x)
+{
+  /* initialisation of solutions */
+  if (ALGO->retry_flag != 0)
+    if (CDT->nb_retry[ALGO->step]==1)
+      printf("Retry #%3d", CDT->nb_retry[ALGO->step]);
+    else
+      printf("\b\b\b%3d", CDT->nb_retry[ALGO->step]);
+  fflush(stdout);
+  
+  x[0] = rand() % CDT->image.dim.x;
+  x[1] = rand() % CDT->image.dim.y;
+  if (CDT->initial_r)
+    x[2] = CDT->initial_r;
+  else
+    x[2] = rand() % (int)sqrt(CDT->image.dim.x*CDT->image.dim.x
+			      + CDT->image.dim.y*CDT->image.dim.y)/4;
+
+
+  vector_copy(CDT->last_cycle_starting_point, x, CDT->SYST->nc);
+}
+
+/****************************************************************************/
+/* Calculate the prop. of pts of a given circle in a square image           */
+/* x[0]=x_center x[1]=y_center x[2]=radius  (0<= prop <=1)	            */
+/****************************************************************************/
+float prop_circle_in_image(struct_cdetect *CDT, float *x)
+{
+  float teta;
+  int xx,yy;
+  float prop=0;
+  
+  for (teta=0; teta<=TWO_PI; teta+=10/x[2])
+    {
+      xx = (int)(x[0] + x[2]*cos(teta));
+      yy = (int)(x[1] + x[2]*sin(teta));
+      if ((xx<CDT->image.dim.x) && (xx>=0) && (yy<CDT->image.dim.y) && (yy>=0))
+	prop++;
+    }
+  if (prop > 10) prop = (prop*10)/(x[2]*TWO_PI);
+  else prop=1;
+
+  return prop;
+}
+
+inline void calculate_avg_circle(float *res1,
+				 float *x1,
+				 struct_eq_system *SYST, struct_algo *ALGO)
+{
+  float sum1 = 0;
+  float sum2 = 0;
+  int j;
+
+  for (int i=0; i < ALGO->nb_couples; i++){
+    j = ALGO->equations[i];
+    sum1 += ABS(SYST->A[j][0]-x1[0]);
+    sum2 += ABS(SYST->A[j][1]-x1[1]);
+  }
+  
+  *res1 = sqrt(sum1*sum1 + sum2*sum2) / (float)ALGO->nb_couples;
+}
+
+/****************************************************************************/
+/* Core for circle detection                                                */
+/****************************************************************************/
+#define XA CDT->SYST->A[i1][0]
+#define YA CDT->SYST->A[i1][1]
+#define XB CDT->SYST->A[i2][0]
+#define YB CDT->SYST->A[i2][1]
+void search_biggest_subsystem_CDT2(struct_cdetect *CDT,
+				   struct_algo_param *P_ALGO,
+				   struct_algo *ALGO){
+
+    float geo_dist; /* geometric distance between current pt and solution */
+    int i1,i2,k,iteration;
+    float t0,ti=0; /* Initial, decrease and current temp */
+    float avg;
+    int new_nb_couples,non_choisies = 0;
+    static float x[3]; /* Vectors of current subsystem solution */
+    int *ligne;
+    float gamma;
+    float delta_r;
+    float dist_AB;
+    float visible_circle;
+    float aux,correction_coeff;
+    int equation_index;
+    float eps_threshold;
+    int xx,yy;
+
+/* temp */
+int nb_corr=0;
+int nb_nocorr=0;
+int rien;
+
+    ALGO->last_subsystem_nb_cycles = ALGO->nb_cycles;
+
+    /* the following variables are defined to simplify expressions */
+    float **A = CDT->SYST->A;
+    int nc = CDT->SYST->nc;
+    /* ****** */
+
+    /* solution monitoring in reciprocal space (-mon_ab option) */
+    FILE *mon_ab;
+    if (P_ALGO->mon_ab) {
+      char mon_ab_name[100];
+      sprintf(mon_ab_name,"MONITOR/mon_ab_%d",ALGO->step+1);
+      mon_ab = fopen(mon_ab_name,"w");
+    }
+
+    ti = P_ALGO->T;
+
+    /* initialisation of solution */
+    solution_initialisation_CDT2(CDT, ALGO, x);
+    if (P_ALGO->graph) conic2_detect_tk_put_start(CDT);
+
+    xx = yy = (int)(x[0]+1);
+    ALGO->step++;
+printf("%f %f %f\n",x[0],x[1],x[2]);
+    /* In the beginning every index points to the equation itself */
+    ligne= (int *) vector_alloc(ALGO->nb_couples, sizeof(int));
+    for (int j = 0; j < ALGO->nb_couples; j++) ligne[j] = j;
+
+    /* set initial temp if auto_temp_set is enable */
+    if (P_ALGO->auto_temp_set) {
+      calculate_avg_circle(&avg, x, CDT->SYST, ALGO);
+      t0 = P_ALGO->tzero * avg;
+printf("initial:%f\n",t0);
+    }
+    else t0=P_ALGO->T;
+
+    /* Here begins the outer loop, counting the number of cycles, i.e. the   */
+    /* number of times, all equations of the equation system have been chosen*/
+    /* to adapt the solution.                                                */
+//    ALGO->nb_cycles = P_ALGO->nb0_cycles * ALGO->nb0_couples / ALGO->nb_couples;
+    ALGO->nb_cycles = P_ALGO->nb0_cycles;
+    for (ALGO->index_cycle = 0;
+//	 ALGO->index_cycle < ALGO->nb_cycles;
+	 ALGO->index_cycle < P_ALGO->nb0_cycles;
+	 ALGO->index_cycle++) {
+      /* calculate current temperature */
+      calculate_avg_circle(&avg, x, CDT->SYST, ALGO);
+      aux = (float)ALGO->index_cycle / (float)ALGO->nb_cycles;
+      ti = P_ALGO->T * (exp(-10*aux/(1.1-aux)));
+
+      /* temp monitoring */
+      if (P_ALGO->mon_t) fprintf(P_ALGO->mon_t_file,"%g %g\n",avg,ti);
+
+      /* stop algorithm if avg/ti is upper than stop_temp */
+      if (avg/ti > P_ALGO->stop_temp || ((int)x[0]==xx && (int)x[1]==yy)){
+	ALGO->last_subsystem_nb_cycles = ALGO->index_cycle;
+	ALGO->index_cycle = ALGO->nb_cycles;
+      }
+      xx = (int)x[0];
+      yy = (int)x[1];
+
+/************************************************************************/
+/* Here begins the inner loop, each couple of equations of the equation */
+/* system is chosen in random order.                                    */
+    
+      for (iteration = 0; iteration < (int)(ALGO->nb_couples*P_ALGO->partial)
+							; iteration++){
+	/* choose one couple of equations */
+	equation_index = choose_line(ligne, &non_choisies, ALGO->nb_couples);
+	i1 = EQ[equation_index]; /* indirect access to equations */
+
+	if (CDT->tan_estimation) { /* mean sq tan estimation */
+	    delta_r =  sqrt((x[0]-A[i1][0])*(x[0]-A[i1][0])
+			    +(x[1]-A[i1][1])*(x[1]-A[i1][1]))-x[2];
+	    /* no correction if delta_r too big */
+	    if (ABS(ALPHA_DIST_CIRC*delta_r/ti) < P_ALGO->stop_temp) {
+	      /* calculate distance */
+	      geo_dist = delta_r;
+	      /* calculate u */
+	      float aux = sqrt((x[0]-A[i1][0])*(x[0]-A[i1][0])
+			       +(x[1]-A[i1][1])*(x[1]-A[i1][1]));
+	      CDT->u.x = (x[0]-A[i1][0])/aux;
+	      CDT->u.y = (x[1]-A[i1][1])/aux;
+	      if (delta_r < 0) {
+		CDT->u.x -= CDT->u.x;
+		CDT->u.y -= CDT->u.y;
+	      }
+	      /* calculate correction coeff */
+	      correction_coeff = -ABS(delta_r)/ti;
+	      if (correction_coeff > -MAX_EXP_NEG)
+		correction_coeff = EXP_TAB(correction_coeff);
+	      else correction_coeff = 0;
+	      /* apply correction to current solutions */
+	      x[0] -= CDT->u.x*delta_r/2*(ti/t0) * correction_coeff;
+	      x[1] -= CDT->u.y*delta_r/2*(ti/t0) * correction_coeff;
+	      x[2] += delta_r/2 * (ti/t0) * correction_coeff;
+
+	      /* update canvas if -graph enable */
+	      if (P_ALGO->graph && iteration%MONITORING_STEP==0
+		  && P_ALGO->mon==-1)
+		conic2_detect_tk_update_mon_canvas(CDT, x, i1, i1);
+
+	      nb_corr++;
+	    }
+	}
+	else { /* two points tan estimation */
+	  i2 = choose_line(ligne, &non_choisies, ALGO->nb_couples);
+	  i2 = EQ[i2];
+	  dist_AB = sqrt((XB-XA)*(XB-XA)+(YB-YA)*(YB-YA));
+
+	  if (dist_AB > MIN_AB && dist_AB < MAX_AB){
+	    delta_r =  sqrt((x[0]-XA)*(x[0]-XA)+(x[1]-YA)*(x[1]-YA))-x[2];
+	    /* no correction if delta_r too big */
+	    if (ABS(ALPHA_DIST_CIRC*delta_r/ti) < P_ALGO->stop_temp) {
+	      /* calculate distance */
+	      gamma = -0.25 * (XB*XB - XA*XA + YB*YB - YA*YA);
+	      CDT->u.x = (XB-XA)/dist_AB; /* direction vector of tan */
+	      CDT->u.y = (YB-YA)/dist_AB;
+	      geo_dist = CDT->u.x*x[0] + CDT->u.y*x[1] + gamma/dist_AB;
+	      /* ((XB-XA)*x[0] + (YB-YA)*x[1] + gamma) / dist_AB */
+
+	      correction_coeff = EXP_TAB(-(ABS(geo_dist)
+					      +ALPHA_DIST_CIRC*ABS(delta_r))/ti);
+	      /* apply correction to current solutions */
+	      x[0]-= CDT->u.x*geo_dist*(ti/t0) * correction_coeff;
+	      x[1]-= CDT->u.y*geo_dist*(ti/t0) * correction_coeff;
+	      x[2] += delta_r * (ti/t0) * correction_coeff;
+
+	      /* solution monitoring */
+	      if (P_ALGO->mon_ab) 
+		fprintf(mon_ab,"%8.3e %8.3e %f %3.1f %f d:%f %f\n",
+					  x[0],x[1],x[2],ti,
+					  EXP_TAB(-ABS(geo_dist)/ti),
+					  geo_dist,
+					  ((XB-XA)*x[0] + (YB-YA)*x[1] + gamma)
+					  /sqrt((XB-XA)*(XB-XA)+(YB-YA)*(YB-YA)));
+
+	      /* update canvas if -graph enable */
+	      if (P_ALGO->graph && iteration%MONITORING_STEP==0 && P_ALGO->mon==-1)
+		conic2_detect_tk_update_mon_canvas(CDT, x, i1, i2);
+	      nb_corr++;
+	    }
+	  }
+	  else {
+	    iteration --;
+	    nb_nocorr++;
+	  }
+	}
+      }
+
+/* End of inner loop							*/
+/************************************************************************/
+
+      /* print partial results every 5 cycles */
+       if (P_ALGO->mon > 1)
+	 if ((ALGO->index_cycle % (int)(ALGO->nb_cycles/5)) == 0) {
+	   printf("ti %f ",ti);
+	   vector_to_screen(x,6);
+	 }
+    }
+
+    /* calculate subsystem size */
+    float d_x,d_y;
+     ALGO->last_subsys_size = 0;
+
+     if (P_ALGO->relative_eps) /* relative threshold */
+       eps_threshold = max_value(P_ALGO->relative_eps*x[2], P_ALGO->epsilon);
+     else eps_threshold = P_ALGO->epsilon; /* absolute threshold */
+
+     for (int i = 0; i < ALGO->nb_couples; i++) {
+       k=EQ[i];
+       d_x = A[k][0]-x[0];
+       d_y = A[k][1]-x[1];
+       if (ABS(sqrt(d_x*d_x + d_y*d_y)-x[2]) < eps_threshold)
+	 ALGO->last_subsys_size++;
+     }
+     new_nb_couples = ALGO->nb_couples;
+
+     /* add current solution to the matrix of solutions */
+     for (int j=0; j < nc; j++)
+       CDT->solutions[ALGO->step-1][j] = x[j];
+     
+     /* update the equation list eq[] */
+     visible_circle = prop_circle_in_image(CDT, x);
+     ALGO->last_subsys_threshold = (int)(TWO_PI*x[2] 
+			    * P_ALGO->stop_cycles_prop*visible_circle/100);
+     if (ALGO->last_subsys_size >= P_ALGO->stop_cycles
+	 && ALGO->last_subsys_size >= ALGO->last_subsys_threshold)
+       /* last found subsystem is accepted (by first postprocessing) */
+       c2detect_update_eq(P_ALGO, ALGO, CDT, eps_threshold);
+
+    if (P_ALGO->graph) conic2_detect_tk_remove_start(CDT);
+
+    free(ligne);
+
+    /* close monitoring files */
+    if (P_ALGO->mon_ab) fclose(mon_ab);
+}
+
+#undef XA
+#undef XB
+#undef YA
+#undef YB
+#undef MIN_AB
+#undef MAX_AB
+
+#undef EQ
